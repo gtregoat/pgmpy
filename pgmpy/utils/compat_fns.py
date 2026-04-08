@@ -33,7 +33,7 @@ def copy(arr):
         raise Exception(f"Invalid backend ({config.get_backend()}) for data type {type(arr)}")
     else:
         if isinstance(arr, torch.Tensor):
-            return arr.detach().clone()
+            return arr.clone()
         else:
             return torch.tensor(arr, dtype=config.get_dtype(), device=config.get_device())
 
