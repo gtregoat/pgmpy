@@ -96,7 +96,10 @@ class DiscreteFactor(BaseFactor, StateNameMixin):
         else:
             import torch
 
-            values = torch.Tensor(values).type(config.get_dtype()).to(config.get_device())
+            if isinstance(values, torch.Tensor):
+                values = values.to(dtype=config.get_dtype(), device=config.get_device())
+            else:
+                values = torch.tensor(values, dtype=config.get_dtype(), device=config.get_device())
 
         if len(cardinality) != len(variables):
             raise ValueError("Number of elements in cardinality must be equal to number of variables")
